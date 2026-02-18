@@ -4,7 +4,12 @@
       "Bash(pnpm install)",
       "Bash(git init:*)",
       "Bash(git remote:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nchore: initialize monorepo with pnpm + turborepo\n\n- Set up pnpm workspace with apps/ and packages/ directories\n- Configure TypeScript, ESLint, Prettier\n- Add packages/tokens for design tokens\n- Add packages/ui for React component library\n- Add apps/docs for Storybook documentation\n- Configure Turborepo for build orchestration\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(pnpm sync:*)",
+      "Bash(git commit:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

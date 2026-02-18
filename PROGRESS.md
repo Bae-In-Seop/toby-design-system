@@ -37,7 +37,13 @@
 - [x] TypeScript, ESLint, Prettier 설정
 - [x] 설정 파일 검토 및 조정
 
-### Phase 2: Design Tokens - 대기
+### Phase 2: Design Tokens - 완료
+
+- [x] Figma Tokens Studio 플러그인 설치
+- [x] 토큰 정의 (color, spacing, radius)
+- [x] JSON export → packages/tokens/raw/tokens.json
+- [x] sync-tokens.ts 스크립트 작성
+- [x] CSS Variables + TypeScript 상수 자동 생성
 
 ### Phase 3: 컴포넌트 템플릿 - 대기
 
@@ -53,11 +59,11 @@
 
 ## 다음 작업
 
-**Phase 2: Design Tokens**
+**Phase 3: 컴포넌트 템플릿**
 
-1. `packages/tokens/raw/tokens.json` 생성
-2. `scripts/sync-tokens.ts` 스크립트 작성
-3. CSS Variables + TypeScript 상수 자동 생성 테스트
+1. Handlebars 템플릿 작성 (Component.tsx.hbs 등)
+2. generate-component.ts 스크립트 작성
+3. Button 컴포넌트 수동 구현으로 구조 확정
 
 ---
 
