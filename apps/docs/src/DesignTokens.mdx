@@ -13,21 +13,22 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 ## Token Architecture
 
-```
-┌──────────────────────────────────────────────────┐
-│  Primitive Tokens                                │
-│  spacing, radius, fontSize, fontWeight, ...      │
-│  → :root에 항상 고정 (테마 무관)                    │
-├──────────────────────────────────────────────────┤
-│  Semantic Tokens                                 │
-│  color-surface, color-primary, shadow, ...       │
-│  → Light: :root (기본)                            │
-│  → Dark:  [data-theme="dark"] (오버라이드)         │
-└──────────────────────────────────────────────────┘
-```
-
-**Primitive 토큰**은 spacing, radius처럼 테마와 무관한 고정값입니다.
-**Semantic 토큰**은 color, shadow처럼 Light/Dark 테마에 따라 값이 달라지는 토큰입니다.
+<div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '24px', fontSize: '13px' }}>
+  <div style={{ padding: '20px', borderRadius: '12px', backgroundColor: '#eff6ff', border: '1px solid #bfdbfe' }}>
+    <p style={{ margin: '0 0 4px', fontWeight: 700, color: '#1e40af' }}>Primitive Tokens</p>
+    <p style={{ margin: '0 0 8px', color: '#1e3a5f' }}>spacing, radius, fontSize, fontWeight, lineHeight, shadow, transition, zIndex</p>
+    <code style={{ color: '#1e40af' }}>:root</code>
+    <span style={{ color: '#64748b', marginLeft: '8px' }}>— 테마와 무관한 고정값</span>
+  </div>
+  <div style={{ padding: '20px', borderRadius: '12px', backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0' }}>
+    <p style={{ margin: '0 0 4px', fontWeight: 700, color: '#166534' }}>Semantic Tokens</p>
+    <p style={{ margin: '0 0 8px', color: '#14532d' }}>color-surface, color-primary, color-text, color-border, ...</p>
+    <div style={{ display: 'flex', gap: '16px' }}>
+      <span><code style={{ color: '#166534' }}>:root</code> <span style={{ color: '#64748b' }}>— Light (기본)</span></span>
+      <span><code style={{ color: '#166534' }}>[data-theme="dark"]</code> <span style={{ color: '#64748b' }}>— Dark (오버라이드)</span></span>
+    </div>
+  </div>
+</div>
 
 ---
 
