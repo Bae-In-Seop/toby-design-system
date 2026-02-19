@@ -1,0 +1,97 @@
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  user-select: none;
+}
+
+.wrapper[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-secondary);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg);
+  transition: all var(--transition-fast);
+  color: var(--color-bg);
+  flex-shrink: 0;
+}
+
+.checkIcon,
+.indeterminateIcon {
+  display: none;
+}
+
+.input:checked + .control {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.input:checked + .control .checkIcon {
+  display: block;
+}
+
+.input:indeterminate + .control {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.input:indeterminate + .control .indeterminateIcon {
+  display: block;
+}
+
+.input:indeterminate + .control .checkIcon {
+  display: none;
+}
+
+.input:focus-visible + .control {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.label {
+  color: var(--color-text);
+}
+
+/* Sizes */
+.wrapper[data-size='sm'] .control {
+  width: 14px;
+  height: 14px;
+}
+
+.wrapper[data-size='sm'] .label {
+  font-size: var(--font-size-sm);
+}
+
+.wrapper[data-size='md'] .control {
+  width: 18px;
+  height: 18px;
+}
+
+.wrapper[data-size='md'] .label {
+  font-size: var(--font-size-md);
+}
+
+.wrapper[data-size='lg'] .control {
+  width: 22px;
+  height: 22px;
+}
+
+.wrapper[data-size='lg'] .label {
+  font-size: var(--font-size-lg);
+}

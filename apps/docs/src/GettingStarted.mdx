@@ -1,0 +1,62 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Getting Started" />
+
+# Toby Design System
+
+Token-driven React 컴포넌트 라이브러리입니다.
+
+## 설치
+
+```bash
+npm install @toby-design/components
+```
+
+## 사용법
+
+```tsx
+// 1. CSS import (앱 진입점에서 한 번)
+import '@toby-design/components/styles.css';
+
+// 2. 컴포넌트 사용
+import { Button, Input, Badge } from '@toby-design/components';
+
+function App() {
+  return (
+    <div>
+      <Button variant="primary" size="md">Save</Button>
+      <Input label="Email" placeholder="you@example.com" />
+      <Badge variant="success">Active</Badge>
+    </div>
+  );
+}
+```
+
+## 컴포넌트 목록
+
+<table>
+  <thead>
+    <tr>
+      <th>컴포넌트</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Button</strong></td><td>버튼 (primary, secondary, ghost, danger)</td></tr>
+    <tr><td><strong>Input</strong></td><td>텍스트 입력 필드 (돋보기 아이콘, 초기화 버튼)</td></tr>
+    <tr><td><strong>Select</strong></td><td>드롭다운 선택</td></tr>
+    <tr><td><strong>Badge</strong></td><td>상태 라벨 (radius 조절 가능)</td></tr>
+    <tr><td><strong>Typography</strong></td><td>텍스트 (heading, body, caption)</td></tr>
+    <tr><td><strong>Card</strong></td><td>콘텐츠 컨테이너</td></tr>
+    <tr><td><strong>Dialog</strong></td><td>모달 대화상자</td></tr>
+    <tr><td><strong>Checkbox</strong></td><td>체크박스 (indeterminate 지원)</td></tr>
+    <tr><td><strong>Toast</strong></td><td>알림 토스트 (success, error, warning, info)</td></tr>
+    <tr><td><strong>Tabs</strong></td><td>탭 네비게이션 (키보드 접근성)</td></tr>
+  </tbody>
+</table>
+
+## 설계 원칙
+
+- **Token-driven**: 모든 스타일 값은 Design Token(CSS Variables)을 참조
+- **data-attribute**: variant/size를 `data-*` 속성으로 관리
+- **Accessible**: 시맨틱 HTML + ARIA 속성

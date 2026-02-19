@@ -1,0 +1,62 @@
+.typography {
+  font-family: inherit;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.typography[data-muted] {
+  color: var(--color-text-muted);
+}
+
+/* Variants */
+.typography[data-variant='heading'] {
+  font-weight: var(--font-weight-bold);
+}
+
+.typography[data-variant='body'] {
+  font-weight: var(--font-weight-normal);
+}
+
+.typography[data-variant='caption'] {
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-muted);
+}
+
+/* Heading sizes */
+.typography[data-variant='heading'][data-size='sm'] {
+  font-size: var(--font-size-lg);
+}
+
+.typography[data-variant='heading'][data-size='md'] {
+  font-size: var(--font-size-xl);
+}
+
+.typography[data-variant='heading'][data-size='lg'] {
+  font-size: var(--font-size-2xl);
+}
+
+/* Body sizes */
+.typography[data-variant='body'][data-size='sm'] {
+  font-size: var(--font-size-sm);
+}
+
+.typography[data-variant='body'][data-size='md'] {
+  font-size: var(--font-size-md);
+}
+
+.typography[data-variant='body'][data-size='lg'] {
+  font-size: var(--font-size-lg);
+}
+
+/* Caption sizes */
+.typography[data-variant='caption'][data-size='sm'] {
+  font-size: var(--font-size-xs);
+}
+
+.typography[data-variant='caption'][data-size='md'] {
+  font-size: var(--font-size-sm);
+}
+
+.typography[data-variant='caption'][data-size='lg'] {
+  font-size: var(--font-size-md);
+}

@@ -1,0 +1,45 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { {{name}} } from './{{name}}';
+
+const meta: Meta<typeof {{name}}> = {
+  title: 'Components/{{name}}',
+  component: {{name}},
+  tags: ['autodocs'],
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['primary', 'secondary', 'ghost'],
+    },
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof {{name}}>;
+
+export const Primary: Story = {
+  args: {
+    children: '{{name}}',
+    variant: 'primary',
+    size: 'md',
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    children: '{{name}}',
+    variant: 'secondary',
+    size: 'md',
+  },
+};
+
+export const Ghost: Story = {
+  args: {
+    children: '{{name}}',
+    variant: 'ghost',
+    size: 'md',
+  },
+};

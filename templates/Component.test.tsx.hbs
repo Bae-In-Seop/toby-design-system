@@ -1,0 +1,26 @@
+import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { {{name}} } from './{{name}}';
+
+describe('{{name}}', () => {
+  it('renders children correctly', () => {
+    render(<{{name}}>Hello</{{name}}>);
+    expect(screen.getByText('Hello')).toBeDefined();
+  });
+
+  it('applies default variant and size', () => {
+    const { container } = render(<{{name}}>Test</{{name}}>);
+    const el = container.firstChild as HTMLElement;
+    expect(el.dataset.variant).toBe('primary');
+    expect(el.dataset.size).toBe('md');
+  });
+
+  it('applies custom variant and size', () => {
+    const { container } = render(
+      <{{name}} variant="secondary" size="lg">Test</{{name}}>
+    );
+    const el = container.firstChild as HTMLElement;
+    expect(el.dataset.variant).toBe('secondary');
+    expect(el.dataset.size).toBe('lg');
+  });
+});

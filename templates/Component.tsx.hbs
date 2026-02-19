@@ -1,0 +1,26 @@
+import React from 'react';
+import styles from './{{name}}.module.css';
+
+export interface {{name}}Props {
+  children?: React.ReactNode;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+}
+
+export const {{name}}: React.FC<{{name}}Props> = ({
+  children,
+  variant = 'primary',
+  size = 'md',
+  ...props
+}) => {
+  return (
+    <div
+      data-variant={variant}
+      data-size={size}
+      className={styles.{{camelName}}}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};

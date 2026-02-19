@@ -1,5 +1,5 @@
 {
-  "name": "@bae-in-seop/ui",
+  "name": "@toby-design/components",
   "version": "0.0.1",
   "private": false,
   "type": "module",
@@ -8,13 +8,15 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     },
     "./styles.css": "./dist/styles.css"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -28,9 +30,12 @@
     "react-dom": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^14.1.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
+    "jsdom": "^28.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tsup": "^8.0.1",
@@ -38,7 +43,7 @@
     "vitest": "^1.2.1"
   },
   "dependencies": {
-    "@bae-in-seop/tokens": "workspace:*"
+    "@toby-design/tokens": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

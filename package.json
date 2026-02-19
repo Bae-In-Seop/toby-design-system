@@ -9,14 +9,25 @@
     "lint": "turbo lint",
     "test": "turbo test",
     "sync": "tsx scripts/sync-tokens.ts",
-    "generate": "tsx scripts/generate-component.ts"
+    "generate": "tsx scripts/generate-component.ts",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm build && changeset publish"
   },
-  "keywords": ["design-system", "react", "components", "tokens"],
+  "keywords": [
+    "design-system",
+    "react",
+    "components",
+    "tokens"
+  ],
   "author": "Bae-In-Seop",
   "license": "MIT",
   "packageManager": "pnpm@10.30.0",
   "engines": {
     "node": ">=20.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",

@@ -1,0 +1,40 @@
+.card {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-bg-muted);
+  border-radius: var(--radius-lg);
+  font-family: inherit;
+}
+
+/* Padding */
+.card[data-padding='none'] {
+  padding: 0;
+}
+
+.card[data-padding='sm'] {
+  padding: var(--spacing-sm);
+}
+
+.card[data-padding='md'] {
+  padding: var(--spacing-lg);
+}
+
+.card[data-padding='lg'] {
+  padding: var(--spacing-xl);
+}
+
+/* Shadow */
+.card[data-shadow='none'] {
+  box-shadow: none;
+}
+
+.card[data-shadow='sm'] {
+  box-shadow: var(--shadow-sm);
+}
+
+.card[data-shadow='md'] {
+  box-shadow: var(--shadow-md);
+}
+
+.card[data-shadow='lg'] {
+  box-shadow: var(--shadow-lg);
+}

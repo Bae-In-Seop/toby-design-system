@@ -1,0 +1,62 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: inherit;
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+/* Radius */
+.badge[data-radius='sm'] {
+  border-radius: var(--radius-sm);
+}
+
+.badge[data-radius='md'] {
+  border-radius: var(--radius-md);
+}
+
+.badge[data-radius='lg'] {
+  border-radius: var(--radius-lg);
+}
+
+.badge[data-radius='full'] {
+  border-radius: var(--radius-full);
+}
+
+/* Variants */
+.badge[data-variant='primary'] {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+}
+
+.badge[data-variant='secondary'] {
+  background-color: var(--color-bg-muted);
+  color: var(--color-text);
+  border: 1px solid var(--color-secondary);
+}
+
+.badge[data-variant='success'] {
+  background-color: var(--color-success);
+  color: var(--color-bg);
+}
+
+.badge[data-variant='error'] {
+  background-color: var(--color-error);
+  color: var(--color-bg);
+}
+
+/* Sizes */
+.badge[data-size='sm'] {
+  padding: 0 var(--spacing-xs);
+  font-size: var(--font-size-xs);
+}
+
+.badge[data-size='md'] {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-sm);
+}
+
+.badge[data-size='lg'] {
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: var(--font-size-md);
+}

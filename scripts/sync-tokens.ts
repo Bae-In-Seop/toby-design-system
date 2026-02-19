@@ -13,6 +13,11 @@ function toKebabCase(str: string): string {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 }
 
+// kebab-case -> camelCase 변환
+function toCamelCase(str: string): string {
+  return str.replace(/-([a-z0-9])/g, (_, c) => c.toUpperCase());
+}
+
 // Tokens Studio 포맷에서 값 추출
 interface TokenValue {
   $value: string;
@@ -64,7 +69,7 @@ function generateCSS(
     let cssValue = value;
 
     // 단위 추가 (spacing, borderRadius 등)
-    if (['spacing', 'borderRadius'].includes(type) && !value.includes('px')) {
+    if (['spacing', 'borderRadius', 'fontSize'].includes(type) && !value.includes('px')) {
       cssValue = `${value}px`;
     }
 
@@ -92,16 +97,18 @@ function generateTS(
       grouped[category] = {};
     }
 
-    // color-primary -> primary
-    const shortName = name.replace(new RegExp(`^${category}-?`), '') || name;
-    grouped[category][shortName] = `var(--${name})`;
+    // "font-size-xs" -> category "fontSize" -> kebab "font-size" -> shortName "xs"
+    const categoryKebab = toKebabCase(category);
+    const shortName = name.replace(new RegExp(`^${categoryKebab}-?`), '') || name;
+    const camelKey = toCamelCase(shortName);
+    grouped[category][camelKey] = `var(--${name})`;
   }
 
   // export 생성
   for (const [category, values] of Object.entries(grouped)) {
     ts += `export const ${category} = {\n`;
     for (const [key, value] of Object.entries(values)) {
-      const safeKey = key.includes('-') ? `'${key}'` : key;
+      const safeKey = key.includes('-') || /^\d/.test(key) ? `'${key}'` : key;
       ts += `  ${safeKey}: '${value}',\n`;
     }
     ts += '} as const;\n\n';
