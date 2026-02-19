@@ -1,6 +1,6 @@
 {
   "name": "@toby-design/tokens",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": false,
   "type": "module",
   "main": "./dist/tokens.js",
@@ -12,7 +12,9 @@
     },
     "./css": "./dist/tokens.css"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsx ../../scripts/sync-tokens.ts && tsc --emitDeclarationOnly",
     "clean": "rimraf dist"
