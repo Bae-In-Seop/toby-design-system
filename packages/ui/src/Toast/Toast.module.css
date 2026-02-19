@@ -31,12 +31,12 @@
 /* Variants */
 .toast[data-variant='success'] {
   background-color: var(--color-success);
-  color: var(--color-bg);
+  color: var(--color-on-primary);
 }
 
 .toast[data-variant='error'] {
   background-color: var(--color-error);
-  color: var(--color-bg);
+  color: var(--color-on-error);
 }
 
 .toast[data-variant='warning'] {
@@ -46,7 +46,7 @@
 
 .toast[data-variant='info'] {
   background-color: var(--color-primary);
-  color: var(--color-bg);
+  color: var(--color-on-primary);
 }
 
 .message {

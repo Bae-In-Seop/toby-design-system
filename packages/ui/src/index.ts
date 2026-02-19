@@ -29,3 +29,6 @@ export type { ToastProps, ToastItem, ToastVariant } from './Toast';
 
 export { Tabs } from './Tabs';
 export type { TabsProps, TabItem } from './Tabs';
+
+export { ThemeProvider, useTheme } from './ThemeProvider';
+export type { ThemeProviderProps, Theme } from './ThemeProvider';

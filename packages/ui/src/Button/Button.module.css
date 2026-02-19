@@ -20,7 +20,7 @@
 /* Variants */
 .button[data-variant='primary'] {
   background-color: var(--color-primary);
-  color: var(--color-bg);
+  color: var(--color-on-primary);
 }
 
 .button[data-variant='primary']:hover:not(:disabled) {
@@ -28,13 +28,13 @@
 }
 
 .button[data-variant='secondary'] {
-  background-color: var(--color-bg-muted);
+  background-color: var(--color-surface-muted);
   color: var(--color-text);
-  border: 1px solid var(--color-secondary);
+  border: 1px solid var(--color-border);
 }
 
 .button[data-variant='secondary']:hover:not(:disabled) {
-  background-color: var(--color-bg);
+  background-color: var(--color-surface);
 }
 
 .button[data-variant='ghost'] {
@@ -43,12 +43,12 @@
 }
 
 .button[data-variant='ghost']:hover:not(:disabled) {
-  background-color: var(--color-bg-muted);
+  background-color: var(--color-surface-muted);
 }
 
 .button[data-variant='danger'] {
   background-color: var(--color-error);
-  color: var(--color-bg);
+  color: var(--color-on-error);
 }
 
 .button[data-variant='danger']:hover:not(:disabled) {

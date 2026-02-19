@@ -18,9 +18,9 @@
 
 .select {
   width: 100%;
-  border: 1px solid var(--color-secondary);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  background-color: var(--color-bg);
+  background-color: var(--color-surface-muted);
   color: var(--color-text);
   font-family: inherit;
   appearance: none;

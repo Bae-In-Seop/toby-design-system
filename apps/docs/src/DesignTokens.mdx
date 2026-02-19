@@ -4,146 +4,208 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Design Tokens
 
-이 디자인 시스템의 모든 스타일 값은 아래 토큰을 기반으로 합니다.
+이 디자인 시스템은 **Primitive 토큰**과 **Semantic 토큰** 두 계층으로 구성됩니다.
 토큰을 변경하면 모든 컴포넌트에 자동 반영됩니다.
+
+> 상단 툴바의 **Theme** 버튼으로 Light / Dark 모드를 전환하며 토큰 변화를 확인할 수 있습니다.
 
 ---
 
-## Color
+## Token Architecture
 
-### 메인 컬러
+```
+┌─────────────────────────────────────────────┐
+│  Primitive Tokens (테마 무관)                  │
+│  spacing, radius, fontSize, fontWeight, ...  │
+│  → :root 에 항상 고정                          │
+├─────────────────────────────────────────────┤
+│  Semantic Tokens (테마별 다름)                  │
+│  color-surface, color-primary, shadow, ...   │
+│  → Light: :root (기본)                        │
+│  → Dark:  [data-theme="dark"] (오버라이드)     │
+└─────────────────────────────────────────────┘
+```
+
+**Primitive 토큰**은 spacing, radius처럼 테마와 무관한 고정값입니다.
+**Semantic 토큰**은 color, shadow처럼 Light/Dark 테마에 따라 값이 달라지는 토큰입니다.
+
+---
+
+## Semantic Tokens — Color
+
+### Surface & Text
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '16px' }}>
+  <div>
+    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-surface)', borderRadius: '8px', border: '1px solid var(--color-border)' }} />
+    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>surface</strong><br/><code>--color-surface</code></p>
+  </div>
+  <div>
+    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-surface-muted)', borderRadius: '8px', border: '1px solid var(--color-border)' }} />
+    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>surfaceMuted</strong><br/><code>--color-surface-muted</code></p>
+  </div>
+  <div>
+    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-text)', borderRadius: '8px' }} />
+    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>text</strong><br/><code>--color-text</code></p>
+  </div>
+  <div>
+    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-text-muted)', borderRadius: '8px' }} />
+    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>textMuted</strong><br/><code>--color-text-muted</code></p>
+  </div>
+</div>
+
+### Primary & Secondary
 
 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '16px' }}>
   <div>
     <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-primary)', borderRadius: '8px' }} />
-    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>primary</strong><br/>#2563EB</p>
+    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>primary</strong><br/><code>--color-primary</code></p>
   </div>
   <div>
     <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-primary-hover)', borderRadius: '8px' }} />
-    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>primaryHover</strong><br/>#1D4ED8</p>
+    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>primaryHover</strong><br/><code>--color-primary-hover</code></p>
+  </div>
+  <div>
+    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-primary)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-on-primary)', fontWeight: 'bold', fontSize: '14px' }}>Aa</div>
+    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>onPrimary</strong><br/><code>--color-on-primary</code></p>
   </div>
   <div>
     <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-secondary)', borderRadius: '8px' }} />
-    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>secondary</strong><br/>#64748B</p>
-  </div>
-  <div>
-    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-warning)', borderRadius: '8px' }} />
-    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>warning</strong><br/>#F59E0B</p>
+    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>secondary</strong><br/><code>--color-secondary</code></p>
   </div>
 </div>
 
-### 상태 컬러
+### Status
 
 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '16px' }}>
   <div>
     <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-success)', borderRadius: '8px' }} />
-    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>success</strong><br/>#16A34A</p>
-  </div>
-  <div>
-    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-success-hover)', borderRadius: '8px' }} />
-    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>successHover</strong><br/>#15803D</p>
+    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>success</strong><br/><code>--color-success</code></p>
   </div>
   <div>
     <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-error)', borderRadius: '8px' }} />
-    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>error</strong><br/>#DC2626</p>
+    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>error</strong><br/><code>--color-error</code></p>
   </div>
   <div>
-    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-error-hover)', borderRadius: '8px' }} />
-    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>errorHover</strong><br/>#B91C1C</p>
+    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-error)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-on-error)', fontWeight: 'bold', fontSize: '14px' }}>Aa</div>
+    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>onError</strong><br/><code>--color-on-error</code></p>
+  </div>
+  <div>
+    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-warning)', borderRadius: '8px' }} />
+    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>warning</strong><br/><code>--color-warning</code></p>
   </div>
 </div>
 
-### 텍스트 & 배경
+### Border & Utility
 
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '16px' }}>
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '32px' }}>
   <div>
-    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-text)', borderRadius: '8px' }} />
-    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>text</strong><br/>#111827</p>
+    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-surface)', borderRadius: '8px', border: '2px solid var(--color-border)' }} />
+    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>border</strong><br/><code>--color-border</code></p>
   </div>
   <div>
-    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-text-muted)', borderRadius: '8px' }} />
-    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>textMuted</strong><br/>#6B7280</p>
+    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-surface)', borderRadius: '8px', border: '2px solid var(--color-border-hover)' }} />
+    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>borderHover</strong><br/><code>--color-border-hover</code></p>
   </div>
-  <div>
-    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-bg)', borderRadius: '8px', border: '1px solid #e5e7eb' }} />
-    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>bg</strong><br/>#FFFFFF</p>
-  </div>
-  <div>
-    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-bg-muted)', borderRadius: '8px', border: '1px solid #e5e7eb' }} />
-    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>bgMuted</strong><br/>#F9FAFB</p>
-  </div>
-</div>
-
-### 유틸리티
-
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '32px' }}>
   <div>
     <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-overlay)', borderRadius: '8px' }} />
-    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>overlay</strong><br/>rgba(0,0,0,0.5)</p>
+    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>overlay</strong><br/><code>--color-overlay</code></p>
   </div>
   <div>
-    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-bg)', borderRadius: '8px', boxShadow: '0 0 0 4px var(--color-focus-ring)', border: '2px solid var(--color-primary)' }} />
-    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>focusRing</strong><br/>primary 20%</p>
-  </div>
-  <div>
-    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-bg)', borderRadius: '8px', boxShadow: '0 0 0 4px var(--color-focus-ring-error)', border: '2px solid var(--color-error)' }} />
-    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>focusRingError</strong><br/>error 20%</p>
+    <div style={{ width: '100%', height: '60px', backgroundColor: 'var(--color-surface)', borderRadius: '8px', boxShadow: '0 0 0 4px var(--color-focus-ring)', border: '2px solid var(--color-primary)' }} />
+    <p style={{ fontSize: '12px', marginTop: '4px' }}><strong>focusRing</strong><br/><code>--color-focus-ring</code></p>
   </div>
 </div>
 
 ---
 
-## Typography
+## Dark Theme
 
-### Font Size
+시맨틱 토큰은 `[data-theme="dark"]` 선택자로 오버라이드됩니다.
+컴포넌트는 CSS 변수명만 참조하기 때문에 별도의 코드 변경 없이 테마가 전환됩니다.
 
-<div style={{ marginBottom: '16px' }}>
-  <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '8px' }}>
-    <code style={{ width: '80px', fontSize: '12px' }}>2xl (24px)</code>
-    <span style={{ fontSize: 'var(--font-size-2xl)', fontWeight: 'var(--font-weight-bold)' }}>The quick brown fox</span>
+```css
+/* Light (기본) */
+:root {
+  --color-surface: #FFFFFF;
+  --color-text: #111827;
+  --color-primary: #2563EB;
+  --color-border: #E5E7EB;
+}
+
+/* Dark (오버라이드) */
+[data-theme="dark"] {
+  --color-surface: #0f172a;
+  --color-text: #f1f5f9;
+  --color-primary: #3b82f6;
+  --color-border: #334155;
+}
+```
+
+### Light vs Dark 비교
+
+<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '32px' }}>
+  <div style={{ padding: '20px', backgroundColor: '#FFFFFF', borderRadius: '12px', border: '1px solid #E5E7EB' }}>
+    <p style={{ fontSize: '14px', fontWeight: 'bold', color: '#111827', marginTop: 0 }}>Light Theme</p>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ width: '24px', height: '24px', backgroundColor: '#FFFFFF', borderRadius: '4px', border: '1px solid #E5E7EB', flexShrink: 0 }} />
+        <code style={{ fontSize: '11px', color: '#111827' }}>surface: #FFFFFF</code>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ width: '24px', height: '24px', backgroundColor: '#111827', borderRadius: '4px', flexShrink: 0 }} />
+        <code style={{ fontSize: '11px', color: '#111827' }}>text: #111827</code>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ width: '24px', height: '24px', backgroundColor: '#2563EB', borderRadius: '4px', flexShrink: 0 }} />
+        <code style={{ fontSize: '11px', color: '#111827' }}>primary: #2563EB</code>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ width: '24px', height: '24px', backgroundColor: '#E5E7EB', borderRadius: '4px', flexShrink: 0 }} />
+        <code style={{ fontSize: '11px', color: '#111827' }}>border: #E5E7EB</code>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ width: '24px', height: '24px', backgroundColor: '#DC2626', borderRadius: '4px', flexShrink: 0 }} />
+        <code style={{ fontSize: '11px', color: '#111827' }}>error: #DC2626</code>
+      </div>
+    </div>
   </div>
-  <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '8px' }}>
-    <code style={{ width: '80px', fontSize: '12px' }}>xl (20px)</code>
-    <span style={{ fontSize: 'var(--font-size-xl)', fontWeight: 'var(--font-weight-bold)' }}>The quick brown fox</span>
-  </div>
-  <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '8px' }}>
-    <code style={{ width: '80px', fontSize: '12px' }}>lg (18px)</code>
-    <span style={{ fontSize: 'var(--font-size-lg)', fontWeight: 'var(--font-weight-semibold)' }}>The quick brown fox</span>
-  </div>
-  <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '8px' }}>
-    <code style={{ width: '80px', fontSize: '12px' }}>md (16px)</code>
-    <span style={{ fontSize: 'var(--font-size-md)' }}>The quick brown fox</span>
-  </div>
-  <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '8px' }}>
-    <code style={{ width: '80px', fontSize: '12px' }}>sm (14px)</code>
-    <span style={{ fontSize: 'var(--font-size-sm)' }}>The quick brown fox</span>
-  </div>
-  <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '8px' }}>
-    <code style={{ width: '80px', fontSize: '12px' }}>xs (12px)</code>
-    <span style={{ fontSize: 'var(--font-size-xs)' }}>The quick brown fox</span>
+  <div style={{ padding: '20px', backgroundColor: '#0f172a', borderRadius: '12px', border: '1px solid #334155' }}>
+    <p style={{ fontSize: '14px', fontWeight: 'bold', color: '#f1f5f9', marginTop: 0 }}>Dark Theme</p>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ width: '24px', height: '24px', backgroundColor: '#0f172a', borderRadius: '4px', border: '1px solid #334155', flexShrink: 0 }} />
+        <code style={{ fontSize: '11px', color: '#f1f5f9' }}>surface: #0f172a</code>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ width: '24px', height: '24px', backgroundColor: '#f1f5f9', borderRadius: '4px', flexShrink: 0 }} />
+        <code style={{ fontSize: '11px', color: '#f1f5f9' }}>text: #f1f5f9</code>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ width: '24px', height: '24px', backgroundColor: '#3b82f6', borderRadius: '4px', flexShrink: 0 }} />
+        <code style={{ fontSize: '11px', color: '#f1f5f9' }}>primary: #3b82f6</code>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ width: '24px', height: '24px', backgroundColor: '#334155', borderRadius: '4px', flexShrink: 0 }} />
+        <code style={{ fontSize: '11px', color: '#f1f5f9' }}>border: #334155</code>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ width: '24px', height: '24px', backgroundColor: '#ef4444', borderRadius: '4px', flexShrink: 0 }} />
+        <code style={{ fontSize: '11px', color: '#f1f5f9' }}>error: #ef4444</code>
+      </div>
+    </div>
   </div>
 </div>
 
-### Line Height
-
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '32px' }}>
-  <div style={{ padding: '12px', backgroundColor: 'var(--color-bg-muted)', borderRadius: '8px' }}>
-    <code style={{ fontSize: '12px', display: 'block', marginBottom: '8px' }}>tight (1.25)</code>
-    <p style={{ fontSize: '14px', lineHeight: 'var(--line-height-tight)', margin: 0 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor.</p>
-  </div>
-  <div style={{ padding: '12px', backgroundColor: 'var(--color-bg-muted)', borderRadius: '8px' }}>
-    <code style={{ fontSize: '12px', display: 'block', marginBottom: '8px' }}>normal (1.5)</code>
-    <p style={{ fontSize: '14px', lineHeight: 'var(--line-height-normal)', margin: 0 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor.</p>
-  </div>
-  <div style={{ padding: '12px', backgroundColor: 'var(--color-bg-muted)', borderRadius: '8px' }}>
-    <code style={{ fontSize: '12px', display: 'block', marginBottom: '8px' }}>relaxed (1.75)</code>
-    <p style={{ fontSize: '14px', lineHeight: 'var(--line-height-relaxed)', margin: 0 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor.</p>
-  </div>
-</div>
+> 테마 설정 방법은 **Getting Started > 다크 모드** 를 참고하세요.
 
 ---
 
-## Spacing
+## Primitive Tokens
+
+아래 토큰들은 테마와 무관하게 항상 동일한 값을 가집니다.
+
+### Spacing
 
 <div style={{ display: 'flex', alignItems: 'flex-end', gap: '16px', marginBottom: '32px' }}>
   <div style={{ textAlign: 'center' }}>
@@ -176,86 +238,125 @@ import { Meta } from '@storybook/addon-docs/blocks';
   </div>
 </div>
 
----
-
-## Radius
+### Radius
 
 <div style={{ display: 'flex', gap: '16px', marginBottom: '32px' }}>
   <div style={{ textAlign: 'center' }}>
-    <div style={{ width: '60px', height: '60px', backgroundColor: 'var(--color-bg-muted)', border: '2px solid var(--color-primary)', borderRadius: 'var(--radius-sm)' }} />
+    <div style={{ width: '60px', height: '60px', backgroundColor: 'var(--color-surface-muted)', border: '2px solid var(--color-primary)', borderRadius: 'var(--radius-sm)' }} />
     <code style={{ fontSize: '10px' }}>sm (4px)</code>
   </div>
   <div style={{ textAlign: 'center' }}>
-    <div style={{ width: '60px', height: '60px', backgroundColor: 'var(--color-bg-muted)', border: '2px solid var(--color-primary)', borderRadius: 'var(--radius-md)' }} />
+    <div style={{ width: '60px', height: '60px', backgroundColor: 'var(--color-surface-muted)', border: '2px solid var(--color-primary)', borderRadius: 'var(--radius-md)' }} />
     <code style={{ fontSize: '10px' }}>md (8px)</code>
   </div>
   <div style={{ textAlign: 'center' }}>
-    <div style={{ width: '60px', height: '60px', backgroundColor: 'var(--color-bg-muted)', border: '2px solid var(--color-primary)', borderRadius: 'var(--radius-lg)' }} />
+    <div style={{ width: '60px', height: '60px', backgroundColor: 'var(--color-surface-muted)', border: '2px solid var(--color-primary)', borderRadius: 'var(--radius-lg)' }} />
     <code style={{ fontSize: '10px' }}>lg (12px)</code>
   </div>
   <div style={{ textAlign: 'center' }}>
-    <div style={{ width: '60px', height: '60px', backgroundColor: 'var(--color-bg-muted)', border: '2px solid var(--color-primary)', borderRadius: 'var(--radius-full)' }} />
+    <div style={{ width: '60px', height: '60px', backgroundColor: 'var(--color-surface-muted)', border: '2px solid var(--color-primary)', borderRadius: 'var(--radius-full)' }} />
     <code style={{ fontSize: '10px' }}>full (9999px)</code>
   </div>
 </div>
 
----
+### Typography
 
-## Shadow
+#### Font Size
+
+<div style={{ marginBottom: '16px' }}>
+  <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '8px' }}>
+    <code style={{ width: '80px', fontSize: '12px' }}>2xl (24px)</code>
+    <span style={{ fontSize: 'var(--font-size-2xl)', fontWeight: 'var(--font-weight-bold)' }}>The quick brown fox</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '8px' }}>
+    <code style={{ width: '80px', fontSize: '12px' }}>xl (20px)</code>
+    <span style={{ fontSize: 'var(--font-size-xl)', fontWeight: 'var(--font-weight-bold)' }}>The quick brown fox</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '8px' }}>
+    <code style={{ width: '80px', fontSize: '12px' }}>lg (18px)</code>
+    <span style={{ fontSize: 'var(--font-size-lg)', fontWeight: 'var(--font-weight-semibold)' }}>The quick brown fox</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '8px' }}>
+    <code style={{ width: '80px', fontSize: '12px' }}>md (16px)</code>
+    <span style={{ fontSize: 'var(--font-size-md)' }}>The quick brown fox</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '8px' }}>
+    <code style={{ width: '80px', fontSize: '12px' }}>sm (14px)</code>
+    <span style={{ fontSize: 'var(--font-size-sm)' }}>The quick brown fox</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '8px' }}>
+    <code style={{ width: '80px', fontSize: '12px' }}>xs (12px)</code>
+    <span style={{ fontSize: 'var(--font-size-xs)' }}>The quick brown fox</span>
+  </div>
+</div>
+
+#### Line Height
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '32px' }}>
+  <div style={{ padding: '12px', backgroundColor: 'var(--color-surface-muted)', borderRadius: '8px' }}>
+    <code style={{ fontSize: '12px', display: 'block', marginBottom: '8px' }}>tight (1.25)</code>
+    <p style={{ fontSize: '14px', lineHeight: 'var(--line-height-tight)', margin: 0 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor.</p>
+  </div>
+  <div style={{ padding: '12px', backgroundColor: 'var(--color-surface-muted)', borderRadius: '8px' }}>
+    <code style={{ fontSize: '12px', display: 'block', marginBottom: '8px' }}>normal (1.5)</code>
+    <p style={{ fontSize: '14px', lineHeight: 'var(--line-height-normal)', margin: 0 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor.</p>
+  </div>
+  <div style={{ padding: '12px', backgroundColor: 'var(--color-surface-muted)', borderRadius: '8px' }}>
+    <code style={{ fontSize: '12px', display: 'block', marginBottom: '8px' }}>relaxed (1.75)</code>
+    <p style={{ fontSize: '14px', lineHeight: 'var(--line-height-relaxed)', margin: 0 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor.</p>
+  </div>
+</div>
+
+### Shadow
 
 <div style={{ display: 'flex', gap: '24px', marginBottom: '32px' }}>
   <div style={{ textAlign: 'center' }}>
-    <div style={{ width: '100px', height: '60px', backgroundColor: 'var(--color-bg)', borderRadius: '8px', boxShadow: 'var(--shadow-sm)' }} />
+    <div style={{ width: '100px', height: '60px', backgroundColor: 'var(--color-surface)', borderRadius: '8px', boxShadow: 'var(--shadow-sm)' }} />
     <code style={{ fontSize: '10px' }}>sm</code>
   </div>
   <div style={{ textAlign: 'center' }}>
-    <div style={{ width: '100px', height: '60px', backgroundColor: 'var(--color-bg)', borderRadius: '8px', boxShadow: 'var(--shadow-md)' }} />
+    <div style={{ width: '100px', height: '60px', backgroundColor: 'var(--color-surface)', borderRadius: '8px', boxShadow: 'var(--shadow-md)' }} />
     <code style={{ fontSize: '10px' }}>md</code>
   </div>
   <div style={{ textAlign: 'center' }}>
-    <div style={{ width: '100px', height: '60px', backgroundColor: 'var(--color-bg)', borderRadius: '8px', boxShadow: 'var(--shadow-lg)' }} />
+    <div style={{ width: '100px', height: '60px', backgroundColor: 'var(--color-surface)', borderRadius: '8px', boxShadow: 'var(--shadow-lg)' }} />
     <code style={{ fontSize: '10px' }}>lg</code>
   </div>
 </div>
 
----
-
-## Transition
+### Transition
 
 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '32px' }}>
-  <div style={{ textAlign: 'center', padding: '16px', backgroundColor: 'var(--color-bg-muted)', borderRadius: '8px' }}>
+  <div style={{ textAlign: 'center', padding: '16px', backgroundColor: 'var(--color-surface-muted)', borderRadius: '8px' }}>
     <code style={{ fontSize: '14px', fontWeight: 'bold' }}>fast</code>
     <p style={{ fontSize: '12px', margin: '4px 0 0' }}>150ms</p>
-    <p style={{ fontSize: '11px', color: 'var(--color-text-muted)', margin: '2px 0 0' }}>hover, focus 등</p>
+    <p style={{ fontSize: '11px', color: 'var(--color-text-muted)', margin: '2px 0 0' }}>hover, focus</p>
   </div>
-  <div style={{ textAlign: 'center', padding: '16px', backgroundColor: 'var(--color-bg-muted)', borderRadius: '8px' }}>
+  <div style={{ textAlign: 'center', padding: '16px', backgroundColor: 'var(--color-surface-muted)', borderRadius: '8px' }}>
     <code style={{ fontSize: '14px', fontWeight: 'bold' }}>normal</code>
     <p style={{ fontSize: '12px', margin: '4px 0 0' }}>200ms</p>
-    <p style={{ fontSize: '11px', color: 'var(--color-text-muted)', margin: '2px 0 0' }}>기본 트랜지션</p>
+    <p style={{ fontSize: '11px', color: 'var(--color-text-muted)', margin: '2px 0 0' }}>default</p>
   </div>
-  <div style={{ textAlign: 'center', padding: '16px', backgroundColor: 'var(--color-bg-muted)', borderRadius: '8px' }}>
+  <div style={{ textAlign: 'center', padding: '16px', backgroundColor: 'var(--color-surface-muted)', borderRadius: '8px' }}>
     <code style={{ fontSize: '14px', fontWeight: 'bold' }}>slow</code>
     <p style={{ fontSize: '12px', margin: '4px 0 0' }}>300ms</p>
-    <p style={{ fontSize: '11px', color: 'var(--color-text-muted)', margin: '2px 0 0' }}>모달, 토스트 등</p>
+    <p style={{ fontSize: '11px', color: 'var(--color-text-muted)', margin: '2px 0 0' }}>modal, toast</p>
   </div>
 </div>
 
----
-
-## Z-Index
+### Z-Index
 
 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '32px' }}>
-  <div style={{ textAlign: 'center', padding: '16px', backgroundColor: 'var(--color-bg-muted)', borderRadius: '8px' }}>
+  <div style={{ textAlign: 'center', padding: '16px', backgroundColor: 'var(--color-surface-muted)', borderRadius: '8px' }}>
     <code style={{ fontSize: '14px', fontWeight: 'bold' }}>dropdown</code>
     <p style={{ fontSize: '12px', margin: '4px 0 0' }}>100</p>
   </div>
-  <div style={{ textAlign: 'center', padding: '16px', backgroundColor: 'var(--color-bg-muted)', borderRadius: '8px' }}>
+  <div style={{ textAlign: 'center', padding: '16px', backgroundColor: 'var(--color-surface-muted)', borderRadius: '8px' }}>
     <code style={{ fontSize: '14px', fontWeight: 'bold' }}>toast</code>
     <p style={{ fontSize: '12px', margin: '4px 0 0' }}>9999</p>
   </div>
-  <div style={{ textAlign: 'center', padding: '16px', backgroundColor: 'var(--color-bg-muted)', borderRadius: '8px' }}>
+  <div style={{ textAlign: 'center', padding: '16px', backgroundColor: 'var(--color-surface-muted)', borderRadius: '8px' }}>
     <code style={{ fontSize: '14px', fontWeight: 'bold' }}>modal</code>
     <p style={{ fontSize: '12px', margin: '4px 0 0' }}>10000</p>
   </div>
 </div>
-

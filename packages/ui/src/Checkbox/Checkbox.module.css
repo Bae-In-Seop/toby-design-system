@@ -24,11 +24,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--color-secondary);
+  border: 2px solid var(--color-border);
   border-radius: var(--radius-sm);
-  background-color: var(--color-bg);
+  background-color: var(--color-surface-muted);
   transition: all var(--transition-fast);
-  color: var(--color-bg);
+  color: var(--color-on-primary);
   flex-shrink: 0;
 }
 

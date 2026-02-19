@@ -4,7 +4,7 @@
 
 .tabList {
   display: flex;
-  border-bottom: 2px solid var(--color-bg-muted);
+  border-bottom: 2px solid var(--color-border);
   gap: 0;
 }
 
@@ -59,6 +59,7 @@
 
 .panel {
   padding: var(--spacing-lg) 0;
+  color: var(--color-text);
 }
 
 /* Sizes */

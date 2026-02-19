@@ -18,16 +18,36 @@ npm install @toby-design/components
 // 1. CSS import (앱 진입점에서 한 번)
 import '@toby-design/components/styles.css';
 
-// 2. 컴포넌트 사용
-import { Button, Input, Badge } from '@toby-design/components';
+// 2. ThemeProvider로 앱을 감싸기
+import { ThemeProvider, Button, Input, Badge } from '@toby-design/components';
 
 function App() {
   return (
-    <div>
-      <Button variant="primary" size="md">Save</Button>
+    <ThemeProvider defaultTheme="light">
+      <Button variant="primary" size="md">
+        Save
+      </Button>
       <Input label="Email" placeholder="you@example.com" />
       <Badge variant="success">Active</Badge>
-    </div>
+    </ThemeProvider>
+  );
+}
+```
+
+## 다크 모드
+
+`ThemeProvider`가 테마 상태를 관리하고, `useTheme` 훅으로 어디서든 테마를 전환할 수 있습니다.
+
+```tsx
+import { useTheme } from '@toby-design/components';
+
+function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <button onClick={toggleTheme}>
+      {theme === 'light' ? 'Dark' : 'Light'} 모드로 전환
+    </button>
   );
 }
 ```
@@ -42,16 +62,66 @@ function App() {
     </tr>
   </thead>
   <tbody>
-    <tr><td><strong>Button</strong></td><td>버튼 (primary, secondary, ghost, danger)</td></tr>
-    <tr><td><strong>Input</strong></td><td>텍스트 입력 필드 (돋보기 아이콘, 초기화 버튼)</td></tr>
-    <tr><td><strong>Select</strong></td><td>드롭다운 선택</td></tr>
-    <tr><td><strong>Badge</strong></td><td>상태 라벨 (radius 조절 가능)</td></tr>
-    <tr><td><strong>Typography</strong></td><td>텍스트 (heading, body, caption)</td></tr>
-    <tr><td><strong>Card</strong></td><td>콘텐츠 컨테이너</td></tr>
-    <tr><td><strong>Dialog</strong></td><td>모달 대화상자</td></tr>
-    <tr><td><strong>Checkbox</strong></td><td>체크박스 (indeterminate 지원)</td></tr>
-    <tr><td><strong>Toast</strong></td><td>알림 토스트 (success, error, warning, info)</td></tr>
-    <tr><td><strong>Tabs</strong></td><td>탭 네비게이션 (키보드 접근성)</td></tr>
+    <tr>
+      <td>
+        <strong>Button</strong>
+      </td>
+      <td>버튼 (primary, secondary, ghost, danger)</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Input</strong>
+      </td>
+      <td>텍스트 입력 필드 (돋보기 아이콘, 초기화 버튼)</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Select</strong>
+      </td>
+      <td>드롭다운 선택</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Badge</strong>
+      </td>
+      <td>상태 라벨 (radius 조절 가능)</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Typography</strong>
+      </td>
+      <td>텍스트 (heading, body, caption)</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Card</strong>
+      </td>
+      <td>콘텐츠 컨테이너</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Dialog</strong>
+      </td>
+      <td>모달 대화상자</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Checkbox</strong>
+      </td>
+      <td>체크박스 (indeterminate 지원)</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Toast</strong>
+      </td>
+      <td>알림 토스트 (success, error, warning, info)</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Tabs</strong>
+      </td>
+      <td>탭 네비게이션 (키보드 접근성)</td>
+    </tr>
   </tbody>
 </table>
 

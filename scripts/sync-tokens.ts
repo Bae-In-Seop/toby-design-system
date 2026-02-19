@@ -29,27 +29,26 @@ interface TokenGroup {
 }
 
 interface TokensFile {
-  [setName: string]: TokenGroup;
+  primitive: TokenGroup;
+  light: TokenGroup;
+  dark: TokenGroup;
 }
 
+type FlatTokens = Record<string, { value: string; type: string }>;
+
 // 토큰 그룹에서 플랫한 토큰 맵 추출
-function flattenTokens(
-  obj: TokenGroup,
-  prefix = ''
-): Record<string, { value: string; type: string }> {
-  const result: Record<string, { value: string; type: string }> = {};
+function flattenTokens(obj: TokenGroup, prefix = ''): FlatTokens {
+  const result: FlatTokens = {};
 
   for (const [key, val] of Object.entries(obj)) {
     const newKey = prefix ? `${prefix}-${toKebabCase(key)}` : toKebabCase(key);
 
     if (val && typeof val === 'object' && '$value' in val) {
-      // 실제 토큰 값
       result[newKey] = {
         value: val.$value as string,
         type: val.$type as string,
       };
     } else if (val && typeof val === 'object') {
-      // 중첩된 그룹
       Object.assign(result, flattenTokens(val as TokenGroup, newKey));
     }
   }
@@ -57,54 +56,58 @@ function flattenTokens(
   return result;
 }
 
-// CSS 생성
-function generateCSS(
-  tokens: Record<string, { value: string; type: string }>
-): string {
-  let css = '/* Auto-generated from Figma Tokens Studio */\n';
-  css += '/* Do not edit manually */\n\n';
-  css += ':root {\n';
-
+// CSS 변수 블록 생성 (셀렉터 안의 내용만)
+function tokensToCSSBlock(tokens: FlatTokens): string {
+  let block = '';
   for (const [name, { value, type }] of Object.entries(tokens)) {
     let cssValue = value;
-
-    // 단위 추가 (spacing, borderRadius 등)
     if (['spacing', 'borderRadius', 'fontSize'].includes(type) && !value.includes('px')) {
       cssValue = `${value}px`;
     }
-
-    css += `  --${name}: ${cssValue};\n`;
+    block += `  --${name}: ${cssValue};\n`;
   }
+  return block;
+}
 
+// CSS 생성 — primitive(:root) + light(:root) + dark([data-theme="dark"])
+function generateCSS(primitive: FlatTokens, light: FlatTokens, dark: FlatTokens): string {
+  let css = '/* Auto-generated from Figma Tokens Studio */\n';
+  css += '/* Do not edit manually */\n\n';
+
+  css += '/* ===== Primitive Tokens (theme-independent) ===== */\n';
+  css += ':root {\n';
+  css += tokensToCSSBlock(primitive);
+  css += '}\n\n';
+
+  css += '/* ===== Semantic Tokens — Light (default) ===== */\n';
+  css += ':root {\n';
+  css += tokensToCSSBlock(light);
+  css += '}\n\n';
+
+  css += '/* ===== Semantic Tokens — Dark ===== */\n';
+  css += '[data-theme="dark"] {\n';
+  css += tokensToCSSBlock(dark);
   css += '}\n';
+
   return css;
 }
 
 // TypeScript 생성
-function generateTS(
-  tokens: Record<string, { value: string; type: string }>
-): string {
+function generateTS(primitive: FlatTokens, light: FlatTokens, dark: FlatTokens): string {
   let ts = '/* Auto-generated from Figma Tokens Studio */\n';
   ts += '/* Do not edit manually */\n\n';
 
-  // 타입별로 그룹화
+  // primitive 토큰을 타입별로 그룹화
   const grouped: Record<string, Record<string, string>> = {};
-
-  for (const [name, { type }] of Object.entries(tokens)) {
+  for (const [name, { type }] of Object.entries(primitive)) {
     const category = type === 'borderRadius' ? 'radius' : type;
-
-    if (!grouped[category]) {
-      grouped[category] = {};
-    }
-
-    // "font-size-xs" -> category "fontSize" -> kebab "font-size" -> shortName "xs"
+    if (!grouped[category]) grouped[category] = {};
     const categoryKebab = toKebabCase(category);
     const shortName = name.replace(new RegExp(`^${categoryKebab}-?`), '') || name;
     const camelKey = toCamelCase(shortName);
     grouped[category][camelKey] = `var(--${name})`;
   }
 
-  // export 생성
   for (const [category, values] of Object.entries(grouped)) {
     ts += `export const ${category} = {\n`;
     for (const [key, value] of Object.entries(values)) {
@@ -114,11 +117,39 @@ function generateTS(
     ts += '} as const;\n\n';
   }
 
-  // 전체 토큰 객체도 export
+  // 시맨틱 토큰 (light/dark) export
+  function themeExport(tokens: FlatTokens): string {
+    const themeGrouped: Record<string, Record<string, string>> = {};
+    for (const [name, { type }] of Object.entries(tokens)) {
+      const category = type === 'borderRadius' ? 'radius' : type;
+      if (!themeGrouped[category]) themeGrouped[category] = {};
+      const categoryKebab = toKebabCase(category);
+      const shortName = name.replace(new RegExp(`^${categoryKebab}-?`), '') || name;
+      const camelKey = toCamelCase(shortName);
+      themeGrouped[category][camelKey] = `var(--${name})`;
+    }
+    const lines: string[] = [];
+    for (const [category, values] of Object.entries(themeGrouped)) {
+      lines.push(`  ${category}: {`);
+      for (const [key, value] of Object.entries(values)) {
+        const safeKey = key.includes('-') || /^\d/.test(key) ? `'${key}'` : key;
+        lines.push(`    ${safeKey}: '${value}',`);
+      }
+      lines.push('  },');
+    }
+    return lines.join('\n');
+  }
+
+  ts += `export const lightTheme = {\n${themeExport(light)}\n} as const;\n\n`;
+  ts += `export const darkTheme = {\n${themeExport(dark)}\n} as const;\n\n`;
+
+  // 전체 export
   ts += 'export const tokens = {\n';
   for (const category of Object.keys(grouped)) {
     ts += `  ${category},\n`;
   }
+  ts += '  light: lightTheme,\n';
+  ts += '  dark: darkTheme,\n';
   ts += '} as const;\n';
 
   return ts;
@@ -128,34 +159,35 @@ function generateTS(
 function main() {
   console.log('🎨 Syncing tokens from Figma...\n');
 
-  // JSON 읽기
   const raw: TokensFile = JSON.parse(fs.readFileSync(RAW_PATH, 'utf-8'));
 
-  // 모든 토큰 세트 병합 (main, etc.)
-  let allTokens: Record<string, { value: string; type: string }> = {};
+  // 3개 레이어 각각 flatten
+  const primitive = flattenTokens(raw.primitive);
+  const light = flattenTokens(raw.light);
+  const dark = flattenTokens(raw.dark);
 
-  for (const [setName, tokenGroup] of Object.entries(raw)) {
-    console.log(`📦 Processing token set: ${setName}`);
-    const flattened = flattenTokens(tokenGroup);
-    allTokens = { ...allTokens, ...flattened };
-  }
+  console.log(`📦 Primitive tokens: ${Object.keys(primitive).length}`);
+  console.log(`🌞 Light theme tokens: ${Object.keys(light).length}`);
+  console.log(`🌙 Dark theme tokens: ${Object.keys(dark).length}`);
 
-  console.log(`\n✅ Found ${Object.keys(allTokens).length} tokens\n`);
+  const total = Object.keys(primitive).length + Object.keys(light).length + Object.keys(dark).length;
+  console.log(`\n✅ Total: ${total} tokens\n`);
 
   // dist 폴더 생성
   fs.mkdirSync(DIST_PATH, { recursive: true });
 
   // CSS 생성
-  const css = generateCSS(allTokens);
+  const css = generateCSS(primitive, light, dark);
   fs.writeFileSync(path.join(DIST_PATH, 'tokens.css'), css);
   console.log('📄 Generated: tokens.css');
 
   // TypeScript 생성
-  const ts = generateTS(allTokens);
+  const ts = generateTS(primitive, light, dark);
   fs.writeFileSync(path.join(DIST_PATH, 'tokens.ts'), ts);
   console.log('📄 Generated: tokens.ts');
 
   // JSON 복사 (참조용)
+  const allTokens = { primitive, light, dark };
   fs.writeFileSync(
     path.join(DIST_PATH, 'tokens.json'),
     JSON.stringify(allTokens, null, 2)
