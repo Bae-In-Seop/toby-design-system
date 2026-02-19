@@ -24,11 +24,12 @@ import '@toby-design/tokens/css';
 
 ```css
 .card {
-  background-color: var(--color-bg);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: var(--spacing-md);
   box-shadow: var(--shadow-sm);
-  font-size: var(--font-size-md);
 }
 ```
 
@@ -37,28 +38,28 @@ import '@toby-design/tokens/css';
 자동완성과 타입 안전성이 필요할 때 사용합니다.
 
 ```ts
-import { color, spacing, fontSize } from '@toby-design/tokens';
+import { spacing, fontSize, lightTheme, darkTheme } from '@toby-design/tokens';
 
-// 값은 CSS 변수 참조 문자열입니다
-color.primary    // 'var(--color-primary)'
+// Primitive 토큰 - 테마 무관
 spacing.md       // 'var(--spacing-md)'
 fontSize.lg      // 'var(--font-size-lg)'
+
+// Semantic 토큰 - 테마별 값
+lightTheme.color.primary   // 'var(--color-primary)'
+darkTheme.color.surface    // 'var(--color-surface)'
 ```
 
-## 토큰 목록
+## 토큰 아키텍처
 
-### Color
+```
+Primitive (테마 무관)     →  :root { --spacing-md: 8px; }
+Semantic Light (기본)     →  :root { --color-surface: #FFFFFF; }
+Semantic Dark (오버라이드) →  [data-theme="dark"] { --color-surface: #0f172a; }
+```
 
-| 토큰 | CSS 변수 | 값 |
-|------|---------|-----|
-| primary | `--color-primary` | `#2563EB` |
-| secondary | `--color-secondary` | `#64748B` |
-| error | `--color-error` | `#DC2626` |
-| success | `--color-success` | `#16A34A` |
-| text | `--color-text` | `#111827` |
-| textMuted | `--color-text-muted` | `#6B7280` |
-| bg | `--color-bg` | `#FFFFFF` |
-| bgMuted | `--color-bg-muted` | `#F9FAFB` |
+## Primitive Tokens
+
+테마와 무관하게 항상 동일한 값을 가집니다.
 
 ### Spacing
 
@@ -68,6 +69,9 @@ fontSize.lg      // 'var(--font-size-lg)'
 | sm | `--spacing-sm` | `4px` |
 | md | `--spacing-md` | `8px` |
 | lg | `--spacing-lg` | `16px` |
+| xl | `--spacing-xl` | `24px` |
+| 2xl | `--spacing-2xl` | `32px` |
+| 3xl | `--spacing-3xl` | `48px` |
 
 ### Border Radius
 
@@ -76,6 +80,7 @@ fontSize.lg      // 'var(--font-size-lg)'
 | sm | `--radius-sm` | `4px` |
 | md | `--radius-md` | `8px` |
 | lg | `--radius-lg` | `12px` |
+| full | `--radius-full` | `9999px` |
 
 ### Font Size
 
@@ -97,13 +102,38 @@ fontSize.lg      // 'var(--font-size-lg)'
 | semibold | `--font-weight-semibold` | `600` |
 | bold | `--font-weight-bold` | `700` |
 
+## Semantic Tokens
+
+Light/Dark 테마에 따라 값이 달라지는 토큰입니다.
+
+### Color
+
+| 토큰 | CSS 변수 | Light | Dark |
+|------|---------|-------|------|
+| surface | `--color-surface` | `#FFFFFF` | `#0f172a` |
+| surfaceMuted | `--color-surface-muted` | `#F9FAFB` | `#1e293b` |
+| text | `--color-text` | `#111827` | `#f1f5f9` |
+| textMuted | `--color-text-muted` | `#6B7280` | `#94a3b8` |
+| primary | `--color-primary` | `#2563EB` | `#3b82f6` |
+| primaryHover | `--color-primary-hover` | `#1D4ED8` | `#60a5fa` |
+| onPrimary | `--color-on-primary` | `#FFFFFF` | `#FFFFFF` |
+| secondary | `--color-secondary` | `#64748B` | `#94a3b8` |
+| error | `--color-error` | `#DC2626` | `#ef4444` |
+| onError | `--color-on-error` | `#FFFFFF` | `#FFFFFF` |
+| success | `--color-success` | `#16A34A` | `#22c55e` |
+| warning | `--color-warning` | `#F59E0B` | `#fbbf24` |
+| border | `--color-border` | `#E5E7EB` | `#334155` |
+| borderHover | `--color-border-hover` | `#D1D5DB` | `#475569` |
+| overlay | `--color-overlay` | `rgba(0,0,0,0.5)` | `rgba(0,0,0,0.7)` |
+| focusRing | `--color-focus-ring` | `rgba(37,99,235,0.2)` | `rgba(59,130,246,0.3)` |
+
 ### Shadow
 
-| 토큰 | CSS 변수 | 값 |
-|------|---------|-----|
-| sm | `--shadow-sm` | `0 1px 2px 0 rgb(0 0 0 / 0.05)` |
-| md | `--shadow-md` | `0 4px 6px -1px rgb(0 0 0 / 0.1)` |
-| lg | `--shadow-lg` | `0 10px 15px -3px rgb(0 0 0 / 0.1)` |
+| 토큰 | CSS 변수 | Light | Dark |
+|------|---------|-------|------|
+| sm | `--shadow-sm` | `0 1px 2px 0 rgb(0 0 0 / 0.05)` | `0 1px 2px 0 rgb(0 0 0 / 0.3)` |
+| md | `--shadow-md` | `0 4px 6px -1px rgb(0 0 0 / 0.1)` | `0 4px 6px -1px rgb(0 0 0 / 0.4)` |
+| lg | `--shadow-lg` | `0 10px 15px -3px rgb(0 0 0 / 0.1)` | `0 10px 15px -3px rgb(0 0 0 / 0.4)` |
 
 ## 토큰 파이프라인
 

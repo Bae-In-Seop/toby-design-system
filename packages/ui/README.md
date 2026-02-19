@@ -15,16 +15,34 @@ npm install @toby-design/components
 // 1. CSS import (앱 진입점에서 한 번)
 import '@toby-design/components/styles.css';
 
-// 2. 컴포넌트 사용
-import { Button, Input, Badge } from '@toby-design/components';
+// 2. ThemeProvider로 앱을 감싸기
+import { ThemeProvider, Button, Input, Badge } from '@toby-design/components';
 
 function App() {
   return (
-    <div>
+    <ThemeProvider defaultTheme="light">
       <Button variant="primary" size="md">Save</Button>
       <Input label="Email" placeholder="you@example.com" />
       <Badge variant="success">Active</Badge>
-    </div>
+    </ThemeProvider>
+  );
+}
+```
+
+## 다크 모드
+
+`ThemeProvider`가 테마 상태를 관리하고, `useTheme` 훅으로 어디서든 테마를 전환할 수 있습니다.
+
+```tsx
+import { useTheme } from '@toby-design/components';
+
+function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <button onClick={toggleTheme}>
+      {theme === 'light' ? 'Dark' : 'Light'} 모드로 전환
+    </button>
   );
 }
 ```
@@ -180,9 +198,11 @@ import { ToastProvider, useToast } from '@toby-design/components';
 // 앱 루트에서 Provider로 감싸기
 function App() {
   return (
-    <ToastProvider>
-      <MyPage />
-    </ToastProvider>
+    <ThemeProvider defaultTheme="light">
+      <ToastProvider>
+        <MyPage />
+      </ToastProvider>
+    </ThemeProvider>
   );
 }
 
