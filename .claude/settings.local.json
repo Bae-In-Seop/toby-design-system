@@ -9,7 +9,11 @@
       "Bash(git branch:*)",
       "Bash(git push:*)",
       "Bash(pnpm sync:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(cd /c/Users/Windows/Desktop/Source/toby-design-system && git add packages/ui/package.json && git rebase --continue 2>&1)",
+      "Bash(cd /c/Users/Windows/Desktop/Source/toby-design-system && GIT_EDITOR=true git rebase --continue 2>&1)",
+      "Bash(cd /c/Users/Windows/Desktop/Source/toby-design-system && git -c core.editor=true rebase --continue 2>&1)",
+      "Bash(cd /c/Users/Windows/Desktop/Source/toby-design-system && git add . && git -c core.editor=: rebase --continue 2>&1)"
     ]
   },
   "enableAllProjectMcpServers": true,
