@@ -1,0 +1,123 @@
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.wrapper[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Visually hidden input */
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-border);
+  transition: background-color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.thumb {
+  position: absolute;
+  left: 2px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface);
+  transition: transform var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Checked state */
+.input:checked + .track {
+  background-color: var(--color-primary);
+}
+
+/* Focus */
+.input:focus-visible + .track {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Hover */
+.wrapper:hover:not([data-disabled]) .track {
+  background-color: var(--color-border-hover);
+}
+
+.wrapper:hover:not([data-disabled]) .input:checked + .track {
+  background-color: var(--color-primary-hover);
+}
+
+.label {
+  color: var(--color-text);
+  user-select: none;
+}
+
+/* Size: sm — track 28×16, thumb 12×12, travel 12px */
+.wrapper[data-size='sm'] .track {
+  width: 28px;
+  height: 16px;
+}
+
+.wrapper[data-size='sm'] .thumb {
+  width: 12px;
+  height: 12px;
+}
+
+.wrapper[data-size='sm'] .input:checked + .track .thumb {
+  transform: translateX(12px);
+}
+
+.wrapper[data-size='sm'] .label {
+  font-size: var(--font-size-sm);
+}
+
+/* Size: md — track 36×20, thumb 16×16, travel 16px */
+.wrapper[data-size='md'] .track {
+  width: 36px;
+  height: 20px;
+}
+
+.wrapper[data-size='md'] .thumb {
+  width: 16px;
+  height: 16px;
+}
+
+.wrapper[data-size='md'] .input:checked + .track .thumb {
+  transform: translateX(16px);
+}
+
+.wrapper[data-size='md'] .label {
+  font-size: var(--font-size-md);
+}
+
+/* Size: lg — track 44×24, thumb 20×20, travel 20px */
+.wrapper[data-size='lg'] .track {
+  width: 44px;
+  height: 24px;
+}
+
+.wrapper[data-size='lg'] .thumb {
+  width: 20px;
+  height: 20px;
+}
+
+.wrapper[data-size='lg'] .input:checked + .track .thumb {
+  transform: translateX(20px);
+}
+
+.wrapper[data-size='lg'] .label {
+  font-size: var(--font-size-lg);
+}

@@ -32,3 +32,12 @@ export type { TabsProps, TabItem } from './Tabs';
 
 export { ThemeProvider, useTheme } from './ThemeProvider';
 export type { ThemeProviderProps, Theme } from './ThemeProvider';
+
+export { Accordion } from './Accordion';
+export type { AccordionProps, AccordionItem } from './Accordion';
+
+export { Tooltip } from './Tooltip';
+export type { TooltipProps } from './Tooltip';
+
+export { Switch } from './Switch';
+export type { SwitchProps } from './Switch';

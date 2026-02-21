@@ -1,0 +1,97 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: var(--z-index-dropdown);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--color-text);
+  color: var(--color-surface);
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-tight);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.tooltip[data-visible] {
+  opacity: 1;
+}
+
+/* Placement: top */
+.tooltip[data-placement='top'] {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Placement: bottom */
+.tooltip[data-placement='bottom'] {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: var(--spacing-sm);
+}
+
+/* Placement: left */
+.tooltip[data-placement='left'] {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: var(--spacing-sm);
+}
+
+/* Placement: right */
+.tooltip[data-placement='right'] {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: var(--spacing-sm);
+}
+
+/* Arrow */
+.arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: var(--spacing-xs) solid transparent;
+}
+
+.tooltip[data-placement='top'] .arrow {
+  bottom: calc(-1 * var(--spacing-xs) * 2);
+  left: 50%;
+  transform: translateX(-50%);
+  border-top-color: var(--color-text);
+  border-bottom: none;
+}
+
+.tooltip[data-placement='bottom'] .arrow {
+  top: calc(-1 * var(--spacing-xs) * 2);
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom-color: var(--color-text);
+  border-top: none;
+}
+
+.tooltip[data-placement='left'] .arrow {
+  right: calc(-1 * var(--spacing-xs) * 2);
+  top: 50%;
+  transform: translateY(-50%);
+  border-left-color: var(--color-text);
+  border-right: none;
+}
+
+.tooltip[data-placement='right'] .arrow {
+  left: calc(-1 * var(--spacing-xs) * 2);
+  top: 50%;
+  transform: translateY(-50%);
+  border-right-color: var(--color-text);
+  border-left: none;
+}
