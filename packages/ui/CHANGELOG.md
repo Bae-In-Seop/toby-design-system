@@ -1,5 +1,11 @@
 # @toby-design/components
 
+## 1.2.0
+
+### Minor Changes
+
+- 6aafc9b: Add Accordion, Tooltip, Switch components
+
 ## 1.1.0
 
 ### Minor Changes
