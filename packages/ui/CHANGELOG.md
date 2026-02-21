@@ -1,5 +1,11 @@
 # @toby-design/components
 
+## 2.0.0
+
+### Major Changes
+
+- styles.css 통합
+
 ## 1.2.0
 
 ### Minor Changes
