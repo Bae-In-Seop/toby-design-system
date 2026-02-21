@@ -1,4 +1,5 @@
 // @toby-design/components - React Component Library
+import '@toby-design/tokens/css';
 
 export { Button } from './Button';
 export type { ButtonProps } from './Button';
